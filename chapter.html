@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Playfair+Display:wght@700&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<style>
+    :root {
+        --primary: #6366f1;
+        --accent: #ec4899;
+        --glass: rgba(255, 255, 255, 0.88);
+        --glass-border: rgba(255, 255, 255, 0.4);
+    }
+
+    body {
+        margin: 0;
+        font-family: 'Inter', sans-serif;
+        min-height: 100vh;
+        background-image: url('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?q=80&w=2282&auto=format&fit=crop');
+        background-size: cover;
+
+        background-position: center;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+    }
+
+    .example::-webkit-scrollbar {
+        display: none;
+    }
+
+    body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: -1;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .navbar {
+        background: rgba(15, 23, 42, 0.9);
+        backdrop-filter: blur(10px);
+        padding: 1rem 5%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        /* width: 100%; */
+        z-index: 1000;
+    }
+
+    .nav-brand {
+        color: white;
+        font-family: 'Playfair Display', serif;
+        font-size: 1.8rem;
+        letter-spacing: 1px;
+    }
+
+    .navbar ul {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+        margin: 0;
+    }
+
+    .navbar a {
+        color: #cbd5e1;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 1.4rem;
+        transition: 0.3s;
+    }
+
+    .navbar a:hover {
+        color: white;
+    }
+
+    .coming-soon-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+    }
+
+    .nav-right {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .search-box {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+
+    .search-box input {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 8px 15px 8px 35px;
+        border-radius: 20px;
+        color: white;
+        outline: none;
+        width: 180px;
+        transition: all 0.3s ease;
+        font-size: 0.9rem;
+    }
+
+    .search-box input:focus {
+        width: 250px;
+        background: rgba(255, 255, 255, 0.2);
+        border-color: var(--primary);
+    }
+
+    .search-box i {
+        position: absolute;
+        left: 12px;
+        color: #94a3b8;
+        font-size: 0.85rem;
+    }
+
+    .profile-btn {
+        color: white;
+        background: var(--primary);
+        width: 35px;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+    .header-content {
+        max-width: 900px;
+        margin: 60px auto 40px;
+        text-align: center;
+        color: white;
+        padding: 0 20px;
+    }
+
+    .header-content h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: 3.5rem;
+        margin-bottom: 25px;
+    }
+
+    .meaningful-text {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        background: rgba(0, 0, 0, 0.3);
+        padding: 30px;
+        border-radius: 20px;
+        backdrop-filter: blur(5px);
+    }
+
+    /* BIG BOXES Grid */
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 20px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 35px;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    .box {
+        background: var(--glass);
+        backdrop-filter: blur(15px);
+        border: 1px solid var(--glass-border);
+        padding: 40px;
+        border-radius: 30px;
+        text-align: center;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        cursor: pointer;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .box:hover {
+        transform: translateY(-15px);
+        background: white;
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+    }
+
+    .box i {
+        font-size: 3.5rem;
+        color: var(--primary);
+        margin-bottom: 20px;
+    }
+
+    .box h3 {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.8rem;
+        margin: 10px 0;
+        color: #0f172a;
+    }
+
+    .box p {
+        color: #475569;
+        font-size: 1rem;
+        line-height: 1.5;
+    }
+
+    .status-tag {
+        display: inline-block;
+        margin-top: 15px;
+        padding: 5px 15px;
+        border-radius: 15px;
+        font-size: 0.75rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        background: #e0e7ff;
+        color: var(--primary);
+    }
+
+    .upcoming {
+        background: #fce7f3;
+        color: var(--accent);
+    }
+</style>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">Kahaniya</div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#">Categories</a></li>
+            <li><a href="feedback.html">Feedback</a></li>
+            <!-- <li><a href="#">Profile</a></li> -->
+        </ul>
+
+        <div class="nav-right">
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="Search stories...">
+            </div>
+            <div class="profile-btn">
+                <i class="fa-solid fa-user"></i>
+            </div>
+        </div>
+    </nav>
+    <div class="header-content">
+        <h1>The Sanctuary of Thought</h1>
+        <div class="meaningful-text">
+            <p>Step into a digital haven where the classic elegance of a library meets modern innovation. <b>Kahani</b>
+                is a sanctuary for those who believe that stories are the architecture of the human soul. Beyond mere
+                text, we offer an immersive environment where imagination breathes. Here, the noise of the world
+                dissolves, replaced by the rhythmic heartbeat of prose and the timeless magic of the written word.</p>
+            <p style="margin-top: 15px; border-top: 1px solid rgba(255,255,255,0.2); padding-top: 15px;">Whether
+                previewing the whispered secrets of our <b>Upcoming Teasers</b> or exploring the depths of our
+                <b>Published Archive</b>, you are part of a living legacy. Join our community of visionaries, bridge the
+                gap between reality and fiction, and rediscover the power of a well-told tale. <b>Your journey starts
+                    here.</b></p>
+        </div>
+    </div>
+
+    <div class="container" id="res">
+
+        <div id="box"></div>
+    </div>
+    <script>
+        const url = window.location.href.split("=")[1];
+        fetch(`http://192.168.31.165:5000/api/chapter/${url}`)
+            .then(response => {
+                return response.json()
+            })
+            .then(data => {
+                console.log(data)
+                var box = "";
+                data.forEach(e => {
+                    box += `<div class="box">
+            <i class="fa-solid fa-book-open"></i>
+            <h3><a href='content.html?id=${e._id}'>${e.ChapterName}</a></h3>
+            
+        </div>`;
+                    // box+=`<a href='content.html?id=${e._id}'>${e.ChapterName}</a>`;        
+                });
+                document.getElementById("res").innerHTML = box;
+            })  
+    </script>
+</body>
+
+</html>

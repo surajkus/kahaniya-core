@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reading | Shadows of Delhi</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:ital,wght@0,700;1,400&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #6366f1;
+            --bg-dark: #0f172a;
+            --glass-reading: rgba(255, 255, 255, 0.92);
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-image: url('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?q=80&w=2282&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            line-height: 1.8;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: -1;
+        }
+
+        /* Reading Progress Bar */
+        .progress-container {
+            position: fixed;
+            top: 0;
+            z-index: 1001;
+            width: 100%;
+            height: 4px;
+            background: transparent;
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: var(--primary);
+            width: 0%;
+        }
+
+        .navbar {
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-brand {
+            color: white;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+        }
+
+        .navbar ul {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            margin: 0;
+        }
+
+        .navbar a {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.4rem;
+            transition: 0.3s;
+        }
+
+        .navbar a:hover {
+            color: white;
+        }
+
+        /* Sections */
+        .section-container {
+            max-width: 100%;
+            /* margin: 1px 28px /auto; */
+            padding: 40px 50px;
+        }
+
+        .section-container1 {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            color: #ede6e6;
+            flex-direction: column;
+        }
+
+        .section-header {
+            text-align: center;
+        }
+
+        .section-header span {
+            font-family: cursive;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin: 0;
+        }
+
+        /* Navigation */
+        .reader-nav {
+            background: rgba(15, 23, 42, 0.9);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            color: white;
+        }
+
+        .back-btn {
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Story Container */
+        .story-wrapper {
+            max-width: 800px;
+            margin: 40px auto;
+            background: var(--glass-reading);
+            backdrop-filter: blur(20px);
+            border-radius: 8px;
+            padding: 60px 80px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .story-header {
+            text-align: center;
+            margin-bottom: 50px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 30px;
+        }
+
+        .story-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin: 0;
+            color: var(--bg-dark);
+        }
+
+        .story-meta {
+            color: #64748b;
+            font-style: italic;
+            margin-top: 10px;
+        }
+
+        /* The Story Text */
+        .story-content {
+            font-size: 1.2rem;
+            color: #334155;
+            text-align: justify;
+        }
+
+        .story-content p {
+            margin-bottom: 25px;
+        }
+
+        /* First Letter Styling */
+        .story-content p:first-of-type::first-letter {
+            float: left;
+            font-size: 4rem;
+            font-family: 'Playfair Display', serif;
+            font-weight: bold;
+            line-height: 1;
+            padding-right: 12px;
+            color: var(--primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .story-wrapper {
+                padding: 40px 25px;
+                margin: 0;
+                border-radius: 0;
+            }
+
+            .story-header h1 {
+                font-size: 2rem;
+            }
+        }
+
+        .badge {
+            background: var(--accent);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        /* Coming Soon Cards */
+        .coming-soon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .search-box {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-box input {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 8px 15px 8px 35px;
+            border-radius: 20px;
+            color: white;
+            outline: none;
+            width: 180px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .search-box input:focus {
+            width: 250px;
+            background: rgba(255, 255, 255, 0.2);
+            border-color: var(--primary);
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 12px;
+            color: #94a3b8;
+            font-size: 0.85rem;
+        }
+
+        .profile-btn {
+            color: white;
+            background: var(--primary);
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .teaser-card {
+            background: var(--glass-white);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            padding: 30px;
+            border-radius: 24px;
+            text-align: center;
+            transition: 0.4s;
+        }
+
+        .teaser-card:hover {
+            transform: translateY(-10px);
+            background: white;
+        }
+
+        .teaser-card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        /* Navigation */
+        .reader-nav {
+            background: rgba(15, 23, 42, 0.9);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            color: white;
+        }
+
+        .back-btn {
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Story Container */
+        .story-wrapper {
+            max-width: 800px;
+            margin: 40px auto;
+            background: var(--glass-reading);
+            backdrop-filter: blur(20px);
+            border-radius: 8px;
+            padding: 60px 80px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .story-header {
+            text-align: center;
+            margin-bottom: 50px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 30px;
+        }
+
+        .story-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin: 0;
+            color: var(--bg-dark);
+        }
+
+        .story-meta {
+            color: #64748b;
+            font-style: italic;
+            margin-top: 10px;
+        }
+
+        /* The Story Text */
+        .story-content {
+            font-size: 1.2rem;
+            color: #334155;
+            text-align: justify;
+        }
+
+        .story-content p {
+            margin-bottom: 25px;
+        }
+
+        /* First Letter Styling */
+        .story-content p:first-of-type::first-letter {
+            float: left;
+            font-size: 4rem;
+            font-family: 'Playfair Display', serif;
+            font-weight: bold;
+            line-height: 1;
+            padding-right: 12px;
+            color: var(--primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .story-wrapper {
+                padding: 40px 25px;
+                margin: 0;
+                border-radius: 0;
+            }
+
+            .story-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">Kahaniya</div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#">Categories</a></li>
+            <li><a href="feedback.html">Feedback</a></li>
+            <!-- <li><a href="#">Profile</a></li> -->
+        </ul>
+
+        <div class="nav-right">
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="Search stories...">
+            </div>
+            <div class="profile-btn">
+                <i class="fa-solid fa-user"></i>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+
+    <div class="story-wrapper" id="box">
+
+    </div>
+    <div id="box"></div>
+    <script>
+
+        const url = window.location.href.split("=")[1];
+        fetch(`http://192.168.31.165:5000/api/content/${url}`)
+            .then(response => {
+                return response.json()
+            })
+            .then(data => {
+                console.log(data)
+                var box = "";
+                data.forEach(e => {
+                    box +=
+                        ` <header class="story-header">
+            <h1>${e.content}</h1>
+            
+        </header>
+
+        <article class="story-content">
+            <p>The rain in Delhi never just falls; it claims the city. On this particular Tuesday, the clouds hung so low they seemed to brush against the minarets of the
+                 old city, whispering secrets to the stone that had seen
+                  dynasties rise and crumble. Arjun stood by the window of his narrow study, the smell of
+                   damp earth and old paper filling his lungs...
+                   Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ratione optio expedita error 
+aspernatur molestias distinctio aliquam exercitationem similique voluptatem soluta? Vero 
+eligendi sint dolores incidunt illum, perferendis ipsa consequuntur nesciunt ipsam, temporibus
+ repellat iure dolorem ratione culpa sapiente quidem sit? Porro inventore amet consectetur adipisci
+  perferendis nesciunt, accusamus quod exercitationem autem tempora, vero animi. Explicabo, expedita saepe? Vel iusto perspiciatis distinctio animi obcaecati cupiditate accusantium! Quis quibusdam quidem fugit distinctio minus accusantium cumque doloribus temporibus. Eos iste modi enim cumque eveniet, qui tenetur repellendus asperiores nulla minus impedit vel architecto ex laboriosam doloremque dicta deleniti et explicabo eaque nam? Sapiente sint corrupti animi ipsum veniam ratione facere praesentium esse. Nemo magni sapiente harum aliquid tempore dolor eveniet provident? Sunt corporis consequuntur saepe dolorem, maxime nam molestiae repellendus sapiente cum repellat exercitationem! Omnis quidem, fuga, suscipit dolores modi qui quibusdam alias cum quam explicabo nesciunt dolor aspernatur quas, repudiandae dicta. Nulla quisquam sit magni accusamus mollitia vitae quam, culpa quasi tenetur voluptate eos dolorum quis sequi velit doloribus, cumque enim. Iste expedita a voluptatem repellat qui quia aut hic exercitationem commodi deserunt velit eaque eum magni unde, est necessitatibus aspernatur at sint alias aperiam suscipit doloremque tempore, eveniet labore. Ipsa facilis fugit optio perferendis perspiciatis molestiae culpa neque nobis, voluptas qui, ab laudantium modi dignissimos omnis ullam unde vel eligendi magnam accusantium aliquid consequuntur ducimus necessitatibus sunt nihil. Culpa magnam mollitia recusandae rem architecto a possimus debitis distinctio repellat ex porro, eveniet repudiandae molestias quaerat quia. Aperiam quas debitis pariatur sapiente quae quo porro officiis exercitationem dolore, mollitia ullam tenetur aliquid atque obcaecati odio vero dignissimos! Explicabo excepturi ab repellat cum blanditiis deserunt repudiandae quos, amet expedita fuga. Facilis totam quidem quisquam minima ipsam quia natus mollitia nam cum voluptatem. Sequi cum corporis ad dolor praesentium temporibus harum iste quisquam assumenda itaque quia aliquid, ipsam voluptate earum, obcaecati illum neque. Dolor nostrum quibusdam porro amet, natus quod consequuntur hic voluptas est accusamus ullam corporis aliquam dolore illum, asperiores ducimus ex impedit vero minima totam consequatur cumque ipsa itaque? Temporibus eos dicta, dolorum tempore alias fugit. Nisi quidem voluptate, deserunt quam quisquam esse voluptatem fugit ex? Doloremque voluptatum quaerat magnam repellendus repudiandae sit veritatis minima enim repellat, laboriosam provident quibusdam placeat dolorum. Iusto velit magni deserunt ut iure maiores maxime? Recusandae temporibus iure ex rem voluptate atque inventore quidem accusantium quae modi. Laboriosam quae asperiores porro praesentium unde sit cum minus iste voluptate enim repudiandae blanditiis aspernatur repellat nihil at beatae, assumenda ab temporibus quis expedita inventore quod eum? Odio velit eum, optio nulla beatae quis ipsum id tenetur tempora esse magnam perferendis maiores facere eveniet ullam neque? 
+Placeat, harum assumenda. Modi blanditiis cupiditate
+<br>
+
+sed! Hic atque facere eum accusamus,
+ repellat, fugit ullam odit, asperiores cupiditate nobis natus possimus assumenda. Quas, 
+ porro nemo voluptate perferendis dolor quod reprehenderit vitae, velit, voluptatum distinctio
+  ducimus enim. Culpa voluptatum, ullam aut delectus recusandae molestias? Ducimus corporis, 
+  aperiam quos sed consequatur tempora impedit sapiente quam deserunt rem soluta ut rerum iure 
+  distinctio quas reiciendis quasi! Provident.</p>
+
+           <p><em>End of Chapter I.</em></p>
+        </article>`;
+
+                });
+                document.getElementById("box").innerHTML = box;
+            })  
+    </script>
